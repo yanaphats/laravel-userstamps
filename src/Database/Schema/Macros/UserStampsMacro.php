@@ -25,14 +25,14 @@ class UserStampsMacro implements MacroInterface
     {
         Blueprint::macro('userstamps', function () {
             if (config('userstamps.users_table_column_type') === 'bigIncrements') {
-                $this->unsignedBigInteger(config('userstamps.created_by_column'))->nullable();
-                $this->unsignedBigInteger(config('userstamps.updated_by_column'))->nullable();
+                $this->unsignedBigInteger(config('userstamps.created_by_column'))->nullable()->comment('Created by user ID');
+                $this->unsignedBigInteger(config('userstamps.updated_by_column'))->nullable()->comment('Updated by user ID');
             } elseif (config('userstamps.users_table_column_type') === 'uuid') {
-                $this->uuid(config('userstamps.created_by_column'))->nullable();
-                $this->uuid(config('userstamps.updated_by_column'))->nullable();
+                $this->uuid(config('userstamps.created_by_column'))->nullable()->comment('Created by user ID');
+                $this->uuid(config('userstamps.updated_by_column'))->nullable()->comment('Updated by user ID');
             } else {
-                $this->unsignedInteger(config('userstamps.created_by_column'))->nullable();
-                $this->unsignedInteger(config('userstamps.updated_by_column'))->nullable();
+                $this->unsignedInteger(config('userstamps.created_by_column'))->nullable()->comment('Created by user ID');
+                $this->unsignedInteger(config('userstamps.updated_by_column'))->nullable()->comment('Updated by user ID');
             }
 
             $this->foreign(config('userstamps.created_by_column'))
@@ -53,11 +53,11 @@ class UserStampsMacro implements MacroInterface
     {
         Blueprint::macro('softUserstamps', function () {
             if (config('userstamps.users_table_column_type') === 'bigIncrements') {
-                $this->unsignedBigInteger(config('userstamps.deleted_by_column'))->nullable();
+                $this->unsignedBigInteger(config('userstamps.deleted_by_column'))->nullable()->comment('Deleted by user ID');
             } elseif (config('userstamps.users_table_column_type') === 'uuid') {
-                $this->uuid(config('userstamps.deleted_by_column'))->nullable();
+                $this->uuid(config('userstamps.deleted_by_column'))->nullable()->comment('Deleted by user ID');
             } else {
-                $this->unsignedInteger(config('userstamps.deleted_by_column'))->nullable();
+                $this->unsignedInteger(config('userstamps.deleted_by_column'))->nullable()->comment('Deleted by user ID');
             }
 
             $this->foreign(config('userstamps.deleted_by_column'))
